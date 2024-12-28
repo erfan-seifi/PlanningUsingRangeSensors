@@ -6,34 +6,31 @@ This project demonstrates the mathematical and algorithmic principles behind ego
 
 ### 1. **Occupancy Maps**
 Occupancy maps represent the environment as a grid, where each cell contains a probability value indicating the likelihood of it being occupied. Mathematically, the probability of a cell being occupied is updated using sensor measurements via:
-\[
-P(O | Z) = \frac{P(Z | O) P(O)}{P(Z)}
-\]
-where:
-- \( P(O) \): Prior probability of the cell being occupied.
-- \( P(Z | O) \): Probability of the sensor measurement given the cell is occupied.
-- \( P(Z) \): Normalizing constant.
+
+P(O | Z) = (P(Z | O) * P(O)) / P(Z)
+Where:
+
+P(O): Prior probability of the cell being occupied.
+P(Z | O): Probability of the sensor measurement given the cell is occupied.
+P(Z): Normalizing constant.
 
 This project uses a binary occupancy map, with the occupancy value \( O \) thresholded for visualization.
 
 ### 2. **LIDAR Simulation**
 The project uses a simulated LIDAR sensor for range measurements. The sensor provides:
-- Ranges \( r \), representing the distance to obstacles.
-- Angles \( \theta \), representing the direction of the measurement.
+- Ranges (r): Representing the distance to obstacles.
+- Angles (θ): Representing the direction of the measurement.
 
 The transformation from sensor coordinates to world coordinates is achieved using homogeneous transformations:
-\[
-\mathbf{p}_{\text{world}} = \mathbf{T}_{\text{sensor}} \mathbf{p}_{\text{sensor}}
-\]
-where:
-\[
-\mathbf{T}_{\text{sensor}} =
-\begin{bmatrix}
-\cos\theta & -\sin\theta & x \\
-\sin\theta & \cos\theta & y \\
-0 & 0 & 1
-\end{bmatrix}
-\]
+p_world = T_sensor * p_sensor
+Where:
+
+arduino
+Copy code
+T_sensor =
+[ cos(θ)  -sin(θ)   x ]
+[ sin(θ)   cos(θ)   y ]
+[  0         0      1 ]
 
 ### 3. **Trajectory Planning**
 The robot's trajectory is planned using a Dubins path planner, which minimizes the turning radius while connecting start and goal points. The Dubins path enforces:
