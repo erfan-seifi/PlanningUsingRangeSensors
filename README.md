@@ -90,6 +90,9 @@ For each ray (r), the cells along the beam are updated using the sensor model.
    ```
 2. Open the project in MATLAB.
 3. Run the script PlanningUsingRangeSensors.m to execute the simulation.
+## Demo
+To see a demonstration of the occupancy mapping and trajectory planning in action, watch the demo video.
+![Simulation Demo](./demo.gif)
 
-## REFERENCES
+## References
 MATLAB Navigation Toolbox Documentation: Create Egocentric Occupancy Maps Using Range Sensors
