@@ -1,6 +1,6 @@
 # Planning Using Range Sensors
 
-This project demonstrates the mathematical and algorithmic principles behind egocentric occupancy maps, motion planning, and trajectory generation using range sensor data. The implementation is inspired by the MATLAB example ["Create Egocentric Occupancy Maps Using Range Sensors"](https://www.mathworks.com/help/nav/ug/create-egocentric-occupancy-maps-using-range-sensors.html).
+This project demonstrates the mathematical and algorithmic principles behind egocentric occupancy maps, motion planning, and trajectory generation using range sensor data. 
 
 ## Mathematical Foundations
 
@@ -20,32 +20,34 @@ This project uses a binary occupancy map, with the occupancy value \( O \) thres
 The project uses a simulated LIDAR sensor for range measurements. The sensor provides:
 - Ranges (r): Representing the distance to obstacles.
 - Angles (θ): Representing the direction of the measurement.
-
+   ```bash
+   p_world = T_sensor * p_sensor
+   ```
 The transformation from sensor coordinates to world coordinates is achieved using homogeneous transformations:
-p_world = T_sensor * p_sensor
-Where:
+   ```bash
+   T_sensor =
+   [ cos(θ)  -sin(θ)   x ]
+   [ sin(θ)   cos(θ)   y ]
+   [  0         0      1 ]
+   ```
 
-arduino
-Copy code
-T_sensor =
-[ cos(θ)  -sin(θ)   x ]
-[ sin(θ)   cos(θ)   y ]
-[  0         0      1 ]
 
 ### 3. **Trajectory Planning**
 The robot's trajectory is planned using a Dubins path planner, which minimizes the turning radius while connecting start and goal points. The Dubins path enforces:
-\[
-\kappa \geq \kappa_{\text{min}}
-\]
-where \( \kappa \) is the curvature and \( \kappa_{\text{min}} \) is the minimum allowable turning radius.
-
-The planner interpolates the path states to generate a smooth trajectory.
+   ```bash
+   κ ≥ κ_min
+   ```
+Where:
+   ```bash
+   κ: Curvature of the path.
+   κ_min: Minimum allowable turning radius.
+   ```
 
 ### 4. **Real-Time Map Updates**
 As the robot moves, sensor data is used to update the local egocentric map. Ray tracing is performed for each LIDAR measurement to update cells along the beam:
-\[
-\text{Occupancy Update} = \text{logit}\left(P(O | Z)\right)
-\]
+   ```bash
+   Occupancy Update = logit(P(O | Z))
+   ```
 The logit transformation is used for efficient Bayesian updates.
 
 ## Implementation Workflow
@@ -60,17 +62,17 @@ The logit transformation is used for efficient Bayesian updates.
 ## Key Equations
 
 1. **Distance Between Waypoints**:
-\[
-d = \sqrt{(x_2 - x_1)^2 + (y_2 - y_1)^2}
-\]
+   ```bash
+   d = sqrt((x2 - x1)^2 + (y2 - y1)^2)
+   ```
 
 2. **Angle Transformation**:
-\[
-\theta = \text{atan2}(y_2 - y_1, x_2 - x_1)
-\]
+   ```bash
+   θ = atan2(y2 - y1, x2 - x1)
+   ```
 
 3. **Ray Tracing Update**:
-For each ray \( r \), the cells along the beam are updated using the sensor model.
+For each ray (r), the cells along the beam are updated using the sensor model.
 
 ## Requirements
 
