@@ -11,7 +11,9 @@ P(O | Z) = (P(Z | O) * P(O)) / P(Z)
 Where:
 
 P(O): Prior probability of the cell being occupied.
+
 P(Z | O): Probability of the sensor measurement given the cell is occupied.
+
 P(Z): Normalizing constant.
 
 This project uses a binary occupancy map, with the occupancy value \( O \) thresholded for visualization.
