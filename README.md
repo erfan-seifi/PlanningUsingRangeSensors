@@ -8,13 +8,12 @@ This project demonstrates the mathematical and algorithmic principles behind ego
 Occupancy maps represent the environment as a grid, where each cell contains a probability value indicating the likelihood of it being occupied. Mathematically, the probability of a cell being occupied is updated using sensor measurements via:
 
 P(O | Z) = (P(Z | O) * P(O)) / P(Z)
+
 Where:
 
-P(O): Prior probability of the cell being occupied.
-
-P(Z | O): Probability of the sensor measurement given the cell is occupied.
-
-P(Z): Normalizing constant.
+   - P(O): Prior probability of the cell being occupied.
+   - P(Z | O): Probability of the sensor measurement given the cell is occupied.
+   - P(Z): Normalizing constant.
 
 This project uses a binary occupancy map, with the occupancy value \( O \) thresholded for visualization.
 
